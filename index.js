@@ -10,7 +10,7 @@ module.exports = {
             .then(function() {
                 return new BB((resolve,reject) => {
                     request
-                        .get(`${this.apiDomain}${this.url}`)
+                        .get(`${apiDomain}${url}`)
                         .set('Accept', 'application/json')
                         .set('X-API-Key', auth.authToken)
                         .end((err,res)=>{
@@ -25,11 +25,11 @@ module.exports = {
             });
     },
     post:function(apiDomain,url,data){
-        return BB.bind({url: url, apiDomain: this.apiDomain, data: data})
+        return BB.bind({url: url, apiDomain: apiDomain, data: data})
             .then(function() {
                 return new BB((resolve,reject) => {
                     request
-                        .post(`${this.apiDomain}${this.url}`)
+                        .post(`${apiDomain}${url}`)
                         .send(this.data)
                         .set('Accept', 'application/json')
                         .set('X-API-Key', auth.authToken)
@@ -46,11 +46,11 @@ module.exports = {
 
     },
     put:function(apiDomain,url,data){
-        return BB.bind({url: url, apiDomain: this.apiDomain, data: data})
+        return BB.bind({url: url, apiDomain: apiDomain, data: data})
             .then(function() {
                 return new BB((resolve,reject) => {
                     request
-                        .post(`${this.apiDomain}${this.url}`)
+                        .post(`${apiDomain}${url}`)
                         .send(this.data)
                         .set('Accept', 'application/json')
                         .set('X-API-Key', auth.authToken)
@@ -66,11 +66,11 @@ module.exports = {
             });
     },
     delete:function(apiDomain,url){
-        return BB.bind({url: url, apiDomain: this.apiDomain})
+        return BB.bind({url: url, apiDomain: apiDomain})
             .then(function() {
                 return new BB((resolve,reject) => {
                     request
-                        .delete(`${this.apiDomain}${this.url}`)
+                        .delete(`${apiDomain}${url}`)
                         .set('Accept', 'application/json')
                         .set('X-API-Key', auth.authToken)
                         .end((err,res)=>{
