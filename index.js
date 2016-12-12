@@ -1,5 +1,5 @@
 'use strict';
-const auth = require('./localstorage-auth');
+const authLocalStorage = require('./localstorage-auth');
 const request = require('superagent');
 const BB = require('bluebird');
 
@@ -8,7 +8,7 @@ module.exports = {
     get:function(apiDomain,url,headers,token){
 
         return new BB((resolve,reject) => {
-            var authToken = token ? token : (localStorage.enabled ? localStorage.authToken : null);
+            var authToken = token ? token : (authLocalStorage.enabled ? authLocalStorage.authToken : null);
             var req = request.get(`${apiDomain}${url}`);
             this.setHeaders(req,headers,authToken)
                 .end((err,res)=>{
@@ -24,7 +24,7 @@ module.exports = {
     post:function(apiDomain,url,data,headers,token){
 
         return new BB((resolve,reject) => {
-            var authToken = token ? token : (localStorage.enabled ? localStorage.authToken : null);
+            var authToken = token ? token : (authLocalStorage.enabled ? authLocalStorage.authToken : null);
             var req = request.post(`${apiDomain}${url}`);
             this.setHeaders(req,headers,authToken)
                 .send(this.data)
@@ -43,7 +43,7 @@ module.exports = {
     put:function(apiDomain,url,data,headers,token){
 
         return new BB((resolve,reject) => {
-            var authToken = token ? token : (localStorage.enabled ? localStorage.authToken : null);
+            var authToken = token ? token : (authLocalStorage.enabled ? authLocalStorage.authToken : null);
             var req = request.put(`${apiDomain}${url}`);
             this.setHeaders(req,headers,authToken)
                 .send(data)
@@ -61,7 +61,7 @@ module.exports = {
     delete:function(apiDomain,url,headers,token){
 
         return new BB((resolve,reject) => {
-            var authToken = token ? token : (localStorage.enabled ? localStorage.authToken : null);
+            var authToken = token ? token : (authLocalStorage.enabled ? authLocalStorage.authToken : null);
             var req = request.delete(`${apiDomain}${url}`);
             this.setHeaders(req,headers,authToken)
                 .end((err,res)=>{
