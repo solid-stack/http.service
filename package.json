@@ -1,0 +1,20 @@
+{
+  "name": "http.service",
+  "version": "1.0.0",
+  "description": "Rest Output Standardization for Front End and Back End",
+  "main": "http.service.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "store": "github:marcuswestin/store.js",
+    "superagent": "^3.2.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mock-require": "^2.0.0"
+  }
+}
