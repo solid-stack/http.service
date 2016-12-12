@@ -5,14 +5,14 @@ const BB = require('bluebird');
 
 module.exports = {
 
-    get:function(apiDomain,url){
+    get:function(apiDomain,url,headers,token){
         return BB.bind({url: url, apiDomain: apiDomain})
             .then(function() {
                 return new BB((resolve,reject) => {
                     request
                         .get(`${apiDomain}${url}`)
                         .set('Accept', 'application/json')
-                        .set('X-API-Key', auth.authToken)
+                        .set('X-API-Key', auth.authToken ? auth.authToken : null)
                         .end((err,res)=>{
                             if (err){
                                 console.error('http.js API GET Request Error');
@@ -32,7 +32,7 @@ module.exports = {
                         .post(`${apiDomain}${url}`)
                         .send(this.data)
                         .set('Accept', 'application/json')
-                        .set('X-API-Key', auth.authToken)
+                        .set('X-API-Key', auth.authToken ? auth.authToken : null)
                         .end((err,res)=>{
                             if (err){
                                 console.error('http.js API POST Request Error');
@@ -53,7 +53,7 @@ module.exports = {
                         .put(`${apiDomain}${url}`)
                         .send(this.data)
                         .set('Accept', 'application/json')
-                        .set('X-API-Key', auth.authToken)
+                        .set('X-API-Key', auth.authToken ? auth.authToken : null)
                         .end((err,res)=>{
                             if (err){
                                 console.error('http.js API PUT Request Error');
@@ -72,7 +72,7 @@ module.exports = {
                     request
                         .delete(`${apiDomain}${url}`)
                         .set('Accept', 'application/json')
-                        .set('X-API-Key', auth.authToken)
+                        .set('X-API-Key', auth.authToken ? auth.authToken : null)
                         .end((err,res)=>{
                             if (err){
                                 console.error('http.js API DELETE Request Error');
