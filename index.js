@@ -9,8 +9,8 @@ module.exports = {
 
         return new BB((resolve,reject) => {
             var authToken = token ? token : (localStorage.enabled ? localStorage.authToken : null);
-            this.setHeaders(request,headers,authToken)
-                .get(`${apiDomain}${url}`)
+            var req = request.get(`${apiDomain}${url}`);
+            this.setHeaders(req,headers,authToken)
                 .end((err,res)=>{
                     if (err){
                         console.error('http.js API GET Request Error');
@@ -25,8 +25,8 @@ module.exports = {
 
         return new BB((resolve,reject) => {
             var authToken = token ? token : (localStorage.enabled ? localStorage.authToken : null);
-            this.setHeaders(request,headers,authToken)
-                .post(`${apiDomain}${url}`)
+            var req = request.post(`${apiDomain}${url}`);
+            this.setHeaders(req,headers,authToken)
                 .send(this.data)
                 .end((err,res)=>{
                     if (err){
@@ -44,8 +44,8 @@ module.exports = {
 
         return new BB((resolve,reject) => {
             var authToken = token ? token : (localStorage.enabled ? localStorage.authToken : null);
-            this.setHeaders(request,headers,authToken)
-                .put(`${apiDomain}${url}`)
+            var req = request.put(`${apiDomain}${url}`);
+            this.setHeaders(req,headers,authToken)
                 .send(this.data)
                 .end((err,res)=>{
                     if (err){
@@ -62,8 +62,8 @@ module.exports = {
 
         return new BB((resolve,reject) => {
             var authToken = token ? token : (localStorage.enabled ? localStorage.authToken : null);
-            this.setHeaders(request,headers,authToken)
-                .delete(`${apiDomain}${url}`)
+            var req = request.delete(`${apiDomain}${url}`);
+            this.setHeaders(req,headers,authToken)
                 .end((err,res)=>{
                     if (err){
                         console.error('http.js API DELETE Request Error');
