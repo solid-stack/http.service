@@ -6,82 +6,82 @@ const BB = require('bluebird');
 module.exports = {
 
     get:function(apiDomain,url,headers,token){
-        return BB.bind({url: url, apiDomain: apiDomain})
-            .then(function() {
-                return new BB((resolve,reject) => {
-                    request
-                        .get(`${apiDomain}${url}`)
-                        .set('Accept', 'application/json')
-                        .set('X-API-Key', auth.authToken ? auth.authToken : null)
-                        .end((err,res)=>{
-                            if (err){
-                                console.error('http.js API GET Request Error');
-                                reject(err);
-                            } else {
-                                resolve(res);
-                            }
-                        });
+
+        return new BB((resolve,reject) => {
+            var authToken = token ? token : (localStorage.enabled ? localStorage.authToken : null);
+            this.setHeaders(request,headers,authToken)
+                .get(`${apiDomain}${url}`)
+                .end((err,res)=>{
+                    if (err){
+                        console.error('http.js API GET Request Error');
+                        reject(err);
+                    } else {
+                        resolve(res);
+                    }
                 });
-            });
+        });
     },
-    post:function(apiDomain,url,data){
-        return BB.bind({url: url, apiDomain: apiDomain, data: data})
-            .then(function() {
-                return new BB((resolve,reject) => {
-                    request
-                        .post(`${apiDomain}${url}`)
-                        .send(this.data)
-                        .set('Accept', 'application/json')
-                        .set('X-API-Key', auth.authToken ? auth.authToken : null)
-                        .end((err,res)=>{
-                            if (err){
-                                console.error('http.js API POST Request Error');
-                                reject(err);
-                            } else {
-                                resolve(res);
-                            }
-                        });
+    post:function(apiDomain,url,data,headers,token){
+
+        return new BB((resolve,reject) => {
+            var authToken = token ? token : (localStorage.enabled ? localStorage.authToken : null);
+            this.setHeaders(request,headers,authToken)
+                .post(`${apiDomain}${url}`)
+                .send(this.data)
+                .end((err,res)=>{
+                    if (err){
+                        console.error('http.js API POST Request Error');
+                        reject(err);
+                    } else {
+                        resolve(res);
+                    }
                 });
-            });
+        });
+
 
     },
-    put:function(apiDomain,url,data){
-        return BB.bind({url: url, apiDomain: apiDomain, data: data})
-            .then(function() {
-                return new BB((resolve,reject) => {
-                    request
-                        .put(`${apiDomain}${url}`)
-                        .send(this.data)
-                        .set('Accept', 'application/json')
-                        .set('X-API-Key', auth.authToken ? auth.authToken : null)
-                        .end((err,res)=>{
-                            if (err){
-                                console.error('http.js API PUT Request Error');
-                                reject(err);
-                            } else {
-                                resolve(res);
-                            }
-                        });
+    put:function(apiDomain,url,data,headers,token){
+
+        return new BB((resolve,reject) => {
+            var authToken = token ? token : (localStorage.enabled ? localStorage.authToken : null);
+            this.setHeaders(request,headers,authToken)
+                .put(`${apiDomain}${url}`)
+                .send(this.data)
+                .end((err,res)=>{
+                    if (err){
+                        console.error('http.js API PUT Request Error');
+                        reject(err);
+                    } else {
+                        resolve(res);
+                    }
                 });
-            });
+        });
+
     },
-    delete:function(apiDomain,url){
-        return BB.bind({url: url, apiDomain: apiDomain})
-            .then(function() {
-                return new BB((resolve,reject) => {
-                    request
-                        .delete(`${apiDomain}${url}`)
-                        .set('Accept', 'application/json')
-                        .set('X-API-Key', auth.authToken ? auth.authToken : null)
-                        .end((err,res)=>{
-                            if (err){
-                                console.error('http.js API DELETE Request Error');
-                                reject(err);
-                            } else {
-                                resolve(res);
-                            }
-                        });
+    delete:function(apiDomain,url,headers,token){
+
+        return new BB((resolve,reject) => {
+            var authToken = token ? token : (localStorage.enabled ? localStorage.authToken : null);
+            this.setHeaders(request,headers,authToken)
+                .delete(`${apiDomain}${url}`)
+                .end((err,res)=>{
+                    if (err){
+                        console.error('http.js API DELETE Request Error');
+                        reject(err);
+                    } else {
+                        resolve(res);
+                    }
                 });
-            });
+        });
+
+    },
+    setHeaders: function (request,headers,token){
+        request
+            .set('Accept', 'application/json')
+            .set('X-API-Key', token);
+        for(var header in headers){
+            request.set(header,headers[header]);
+        }
+        return request;
     }
 };
