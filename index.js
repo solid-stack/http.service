@@ -50,7 +50,7 @@ module.exports = {
             .then(function() {
                 return new BB((resolve,reject) => {
                     request
-                        .post(`${apiDomain}${url}`)
+                        .put(`${apiDomain}${url}`)
                         .send(this.data)
                         .set('Accept', 'application/json')
                         .set('X-API-Key', auth.authToken)
