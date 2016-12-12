@@ -46,7 +46,7 @@ module.exports = {
             var authToken = token ? token : (localStorage.enabled ? localStorage.authToken : null);
             var req = request.put(`${apiDomain}${url}`);
             this.setHeaders(req,headers,authToken)
-                .send(this.data)
+                .send(data)
                 .end((err,res)=>{
                     if (err){
                         console.error('http.js API PUT Request Error');
