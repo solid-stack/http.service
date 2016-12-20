@@ -23,7 +23,7 @@ module.exports = {
                 // If request is unauthorized
                 if (err.status === 403 && unauthorizedRoute&& window){
                     console.error('http.js API GET Request Unauthorized');
-                    window.location = this.unauthorizedRoute;
+                    window.location = unauthorizedRoute;
 
                 }
             });
@@ -44,7 +44,7 @@ module.exports = {
             .catch(err=>{
                 if (err.status === 403 && unauthorizedRoute && window){
                     console.error('http.js API POST Request Unauthorized');
-                    window.location = this.unauthorizedRoute;
+                    window.location = unauthorizedRoute;
                 }
             });
 
@@ -66,7 +66,7 @@ module.exports = {
             .catch(err=>{
                 if (err.status === 403 && unauthorizedRoute&& window){
                     console.error('http.js API PUT Request Unauthorized');
-                    window.location = this.unauthorizedRoute;
+                    window.location = unauthorizedRoute;
                 }
             });
 
@@ -84,7 +84,7 @@ module.exports = {
             .catch(err=>{
                 if (err.status === 403 && unauthorizedRoute&& window){
                     console.error('http.js API DELETE Request Unauthorized');
-                    window.location = this.unauthorizedRoute;
+                    window.location = unauthorizedRoute;
                 }
             });
 
